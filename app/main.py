@@ -40,6 +40,4 @@ def health():
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(session: SessionInput):
-    result = predict_session(session)
-    return result
-
+    return predict_session(session)
