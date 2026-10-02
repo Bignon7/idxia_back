@@ -41,3 +41,4 @@ class PredictionOutput(BaseModel):
     risk_level: str
     probability_attack: float
     top_factors: list[dict]
+    explanation_text: str

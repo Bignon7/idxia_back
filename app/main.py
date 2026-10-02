@@ -14,6 +14,7 @@ Documentation interactive generee automatiquement sur :
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app import history
 from app.predict import predict_session
 from app.schemas import PredictionOutput, SessionInput
 
@@ -40,4 +41,11 @@ def health():
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(session: SessionInput):
-    return predict_session(session)
+    result = predict_session(session)
+    history.add_entry(session.model_dump(), result)
+    return result
+
+
+@app.get("/history")
+def get_history(limit: int = 50):
+    return history.get_history(limit)
