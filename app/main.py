@@ -14,6 +14,7 @@ Documentation interactive generee automatiquement sur :
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app import es_client
 from app.predict import predict_session
 from app.schemas import PredictionOutput, SessionInput
 
@@ -40,4 +41,6 @@ def health():
 
 @app.post("/predict", response_model=PredictionOutput)
 def predict(session: SessionInput):
-    return predict_session(session)
+    result = predict_session(session)
+    es_client.index_alert(session.model_dump(), result)
+    return result

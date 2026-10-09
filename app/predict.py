@@ -71,7 +71,7 @@ def _get_class1_contributions(shap_values, feature_cols: list, raw_session: dict
             class1_values = values[0]
 
     return [
-        {"feature": name, "impact": float(impact), "value": raw_session.get(name)}
+        {"feature": name, "impact": float(impact), "value": str(raw_session.get(name))}
         for name, impact in zip(feature_cols, class1_values)
     ]
 

@@ -6,3 +6,4 @@ pandas
 scikit-learn
 xgboost
 shap
+elasticsearch==8.19.3
